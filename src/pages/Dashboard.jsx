@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import PropTypes from "prop-types";
+import axios from "axios";
 
 import {
   Tabs,
@@ -60,9 +61,46 @@ function a11yProps(index) {
 }
 const Dashboard = () => {
   const [value, setValue] = React.useState(0);
+  const [pageNo, setpageNo] = React.useState(1);
+  const [pSize, setpSize] = React.useState(4);
+  const [paginationSize, setpaginationSize] = React.useState(0);
+
+
+  const headersGetEvent = {
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3YWxsZXRBZGRyZXNzIjoiMHgzQjI2NjdjRDRiNjAxMkU2YkFGNzNhMGExYzcxRjA5MDdDY0UzNjg0IiwiZGlkIjoiZGlkOmhpZDp0ZXN0bmV0OjB4M0IyNjY3Y0Q0YjYwMTJFNmJBRjczYTBhMWM3MUYwOTA3Q2NFMzY4NCIsImlkIjoiNjYzYTg1OGE1MjQwOTcyM2I2NzllNDk1IiwiaWF0IjoxNzE1NTU3NDc1LCJleHAiOjE3MTU2NDM4NzV9.Rj_v43Aum617zer_2D44JH6Ma0lcTSHjGY0R_2mn39Q`,
+    "Content-Type": "application/json",
+  };
+
+  const getEventDetails = () => {
+    axios({
+      method: "get",
+      url: `https://api.fyre-stage.hypersign.id/api/v1/event?page=${pageNo}&limit=${pSize}`,
+      headers: headersGetEvent,
+    })
+      .then(function (response) {
+        if (
+          response?.data?.success === true &&
+          response?.data?.message === "Success"
+        ) {
+          const totalresponse_length=response?.data?.total;
+          const countPages = Math.ceil(totalresponse_length / pSize);
+          setpaginationSize(countPages);
+
+          
+        }
+      })
+      .catch((e) => {});
+  };
+
+  useEffect(() => {
+    getEventDetails();
+  }, [pageNo,pSize]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+  const handlePageChange = (event, value) => {
+    setpageNo(value);
   };
   return (
     <Grid>
@@ -322,7 +360,10 @@ const Dashboard = () => {
           }}
         >
           <Pagination
-            count={9}
+            count={paginationSize}
+            page={pageNo}
+            onChange={handlePageChange}
+
             size="small"
             sx={{
               "& .MuiPaginationItem-root": {
