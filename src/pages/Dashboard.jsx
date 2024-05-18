@@ -1,18 +1,31 @@
 import React from "react";
 
-// import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
-// import Tabs from "@mui/material/Tabs";
-// import Tab from "@mui/material/Tab";
-// import Grid from "@mui/material/Grid";
-// import Paper from "@mui/material/Paper";
-// import Typography from "@mui/material/Typography";
-import { Tabs, Tab, Box, Typography, Paper, Grid, Button, Pagination, InputAdornment, Input } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
 
-// import Pagination from "@mui/material/Pagination";
+import {
+  Tabs,
+  Tab,
+  Box,
+  Typography,
+  Paper,
+  Grid,
+  Button,
+  Pagination,
+  InputAdornment,
+  Input,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import ButtonBase from "@mui/material/ButtonBase";
+import { styled } from "@mui/material/styles";
+
 import DashboardUpperBox from "./DashboardUpperBox.jsx";
-
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+const Img = styled("img")({
+  margin: "auto",
+  display: "block",
+  maxWidth: "100%",
+  maxHeight: "100%",
+});
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -106,10 +119,16 @@ const Dashboard = () => {
               </Grid>
             </Grid>
             <Box sx={{ width: "100%" }}>
-              <Box style={{ display: "flex", flexDirection: "row", justifyContent:"space-between" }}>
+              <Box
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
                 <Box
                   sx={{
-                    maxWidth: { xs: 500, sm: 700 },
+                    maxWidth: { xs: 400, sm: 700 },
                     bgcolor: "transparent",
                   }}
                 >
@@ -124,7 +143,7 @@ const Dashboard = () => {
                         backgroundColor: "white",
                       },
                       "& .Mui-selected": {
-                        color: "white", 
+                        color: "white",
                       },
                     }}
                   >
@@ -159,7 +178,7 @@ const Dashboard = () => {
                   <input
                     style={{
                       height: "38px",
-                      width: "23rem",
+                      width: "20rem",
                       borderRadius: "25px",
                       color: "white",
                       outline: "none",
@@ -186,7 +205,95 @@ const Dashboard = () => {
                 </Box>
               </Box>
               <CustomTabPanel value={value} index={0}>
-                Item One
+                <Box
+                  style={{
+                    background: "#FFFFFF14",
+                    border: "1px solid white",
+                    height: "162px",
+                    padding: "0px",
+                    gap: "33px",
+                    borderRadius: "20px",
+                    opacity: 1,
+                  }}
+                >
+                  <Paper
+                    sx={{
+                      p: 2,
+                      margin: "auto",
+                      // maxWidth: 500,
+                      flexGrow: 1,
+                      backgroundColor: "transparent",
+                    }}
+                  >
+                    <Grid container spacing={2}>
+                      <Grid item>
+                        <ButtonBase
+                          sx={{
+                            width: 230,
+                            height: 128,
+                            border: "1px",
+                            borderRadius: "20px",
+                          }}
+                        >
+                          <Img
+                            alt="complex"
+                            src="https://qph.cf2.quoracdn.net/main-qimg-c6bb3257e87d07f96732bfd3e113e712"
+                          />
+                        </ButtonBase>
+                      </Grid>
+                      <Grid item xs={12} sm container>
+                        <Grid item xs container direction="column" spacing={2}>
+                          <Grid item xs>
+                            <Typography
+                              gutterBottom
+                              variant="subtitle1"
+                              component="div"
+                              color={"#F6F6F7"}
+                            >
+                              NFT AIRPOD
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              color={"#ADB9C7"}
+                              gutterBottom
+                            >
+                              December 01, 2021, 4:20AM to 4:20PM EST{" "}
+                              <span
+                                style={{ color: "red", marginLeft: "1rem" }}
+                              >
+                                Inactive
+                              </span>{" "}
+                            </Typography>
+                            <Typography variant="body2" color={"#F6F6F7"}>
+                              10 Participants{" "}
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              color="text.secondary"
+                            ></Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography
+                              sx={{ cursor: "pointer" }}
+                              variant="body2"
+                            >
+                              Remove
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                        <Grid item>
+                          <Typography
+                            variant="subtitle1"
+                            component="div"
+                            color={"#F6F6F7"}
+                          >
+                            <MoreVertIcon />
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Paper>{" "}
+                </Box>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={1}>
                 Item Two

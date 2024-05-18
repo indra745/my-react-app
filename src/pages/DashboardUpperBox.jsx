@@ -1,20 +1,18 @@
 
 
 import React from "react";
-import Button from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
-import Box from '@mui/material/Box';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import ButtonBase from "@mui/material/ButtonBase";
 import AddIcon from "@mui/icons-material/Add";
-import Pagination from '@mui/material/Pagination';
+import { useNavigate } from "react-router-dom";
 
 const DashboardUpperBox = () => {
+  const navigate = useNavigate();
+
+  const handleCreateEventClick = () => {
+    navigate("/create_event");
+  };
 
   return (
     <Grid container spacing={2}>
@@ -67,6 +65,7 @@ const DashboardUpperBox = () => {
             <Grid item style={{ display: "flex", alignItems: "center" }}>
               <button
                 variant="contained"
+                onClick={handleCreateEventClick}
                 style={{
                   background: "#2656D6",
                   borderRadius: "5px",
