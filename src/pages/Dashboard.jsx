@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState,useRef,useCallback  } from "react";
 
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -14,13 +14,15 @@ import {
   Pagination,
   InputAdornment,
   Input,
+  Avatar,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ButtonBase from "@mui/material/ButtonBase";
 import { styled } from "@mui/material/styles";
-
+import { GET_EVENT_LIST } from "../utils/urls.js";
 import DashboardUpperBox from "./DashboardUpperBox.jsx";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import DashboardCardsWithAllParameter from "./DashboardCardsWithAllParameter.jsx"
 const Img = styled("img")({
   margin: "auto",
   display: "block",
@@ -39,7 +41,7 @@ function CustomTabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 3, pl: 0, pr: 0 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -62,46 +64,122 @@ function a11yProps(index) {
 const Dashboard = () => {
   const [value, setValue] = React.useState(0);
   const [pageNo, setpageNo] = React.useState(1);
-  const [pSize, setpSize] = React.useState(4);
+  const [pSize, setpSize] = React.useState(3);
   const [paginationSize, setpaginationSize] = React.useState(0);
-
+  const [cards, setCards] = useState([]);
+  const [partnersearch, setpartnersearch] = useState(""); // Initialize with an empty string
 
   const headersGetEvent = {
     Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3YWxsZXRBZGRyZXNzIjoiMHgzQjI2NjdjRDRiNjAxMkU2YkFGNzNhMGExYzcxRjA5MDdDY0UzNjg0IiwiZGlkIjoiZGlkOmhpZDp0ZXN0bmV0OjB4M0IyNjY3Y0Q0YjYwMTJFNmJBRjczYTBhMWM3MUYwOTA3Q2NFMzY4NCIsImlkIjoiNjYzYTg1OGE1MjQwOTcyM2I2NzllNDk1IiwiaWF0IjoxNzE1NTU3NDc1LCJleHAiOjE3MTU2NDM4NzV9.Rj_v43Aum617zer_2D44JH6Ma0lcTSHjGY0R_2mn39Q`,
     "Content-Type": "application/json",
   };
 
-  const getEventDetails = () => {
+  const getEventDetails = useCallback(() => {
+    let url;
+    switch (value) {
+      case 1:
+        url = `https://api.fyre-stage.hypersign.id/${GET_EVENT_LIST}?page=${pageNo}&limit=${pSize}&filter=ends_in_24h`;
+        break;
+      case 2:
+        url = `https://api.fyre-stage.hypersign.id/${GET_EVENT_LIST}?page=${pageNo}&limit=${pSize}&filter=completed`;
+        break;
+      case 3:
+        url = `https://api.fyre-stage.hypersign.id/${GET_EVENT_LIST}?page=${pageNo}&limit=${pSize}&filter=nft`;
+        break;
+      case 4:
+        url = `https://api.fyre-stage.hypersign.id/${GET_EVENT_LIST}?page=${pageNo}&limit=${pSize}&filter=pending_reward`;
+        break;
+      default:
+        url = `https://api.fyre-stage.hypersign.id/${GET_EVENT_LIST}?page=${pageNo}&limit=${pSize}`;
+        break;
+    }
+
     axios({
       method: "get",
-      url: `https://api.fyre-stage.hypersign.id/api/v1/event?page=${pageNo}&limit=${pSize}`,
+      url: url,
       headers: headersGetEvent,
     })
-      .then(function (response) {
-        if (
-          response?.data?.success === true &&
-          response?.data?.message === "Success"
-        ) {
-          const totalresponse_length=response?.data?.total;
+      .then((response) => {
+        if (response?.data?.success && response?.data?.message === "Success") {
+          const totalresponse_length = response?.data?.total;
           const countPages = Math.ceil(totalresponse_length / pSize);
           setpaginationSize(countPages);
-
-          
+          setCards(response?.data?.data);
         }
       })
-      .catch((e) => {});
-  };
+      .catch((e) => {
+        console.error(e);
+      });
+  }, [value, pageNo, pSize]);
+
+  const handleSearch = useCallback(() => {
+    let url;
+    switch (value) {
+      case 1:
+        url = `https://api.fyre-stage.hypersign.id/${GET_EVENT_LIST}?page=${pageNo}&limit=${pSize}&filter=ends_in_24h&searchString=${partnersearch}`;
+        break;
+      case 2:
+        url = `https://api.fyre-stage.hypersign.id/${GET_EVENT_LIST}?page=${pageNo}&limit=${pSize}&filter=completed&searchString=${partnersearch}`;
+        break;
+      case 3:
+        url = `https://api.fyre-stage.hypersign.id/${GET_EVENT_LIST}?page=${pageNo}&limit=${pSize}&filter=nft&searchString=${partnersearch}`;
+        break;
+      case 4:
+        url = `https://api.fyre-stage.hypersign.id/${GET_EVENT_LIST}?page=${pageNo}&limit=${pSize}&filter=pending_reward&searchString=${partnersearch}`;
+        break;
+      default:
+        url = `https://api.fyre-stage.hypersign.id/${GET_EVENT_LIST}?page=${pageNo}&limit=${pSize}&searchString=${partnersearch}`;
+        break;
+    }
+
+    if (partnersearch) {
+      axios({
+        method: "get",
+        url: url,
+        headers: headersGetEvent,
+      })
+        .then((response) => {
+          if (response?.data?.success && response?.data?.message === "Success") {
+            const totalresponse_length = response?.data?.total;
+            const countPages = Math.ceil(totalresponse_length / pSize);
+            setpaginationSize(countPages);
+            setCards(response?.data?.data);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          getEventDetails();
+        });
+    } else {
+      getEventDetails();
+    }
+  }, [partnersearch, value, pageNo, pSize, getEventDetails]);
 
   useEffect(() => {
     getEventDetails();
-  }, [pageNo,pSize]);
+  }, [pageNo, pSize,getEventDetails]);
 
   const handleChange = (event, newValue) => {
+    setpartnersearch("");
+
     setValue(newValue);
   };
   const handlePageChange = (event, value) => {
     setpageNo(value);
   };
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch(); 
+    }
+  };
+  const searchInputRef = useRef(null); // Create a ref for the search input
+  const handleInputChange = (event) => {
+    if (event.target.value === "") {
+      getEventDetails();
+
+    }
+  };
+
   return (
     <Grid>
       <Paper
@@ -234,117 +312,93 @@ const Dashboard = () => {
                         <SearchIcon />
                       </InputAdornment>
                     }
-                    // value={partnersearch}
-                    // onChange={(e) => setpartnersearch(e.target.value)}
-                    // onKeyPress={handleKeyPress}
-                    // ref={searchInputRef}
-                    // onInput={handleInputChange}
+                    value={partnersearch}
+                    onChange={(e) => setpartnersearch(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    ref={searchInputRef}
+                    onInput={handleInputChange}
                   />
                 </Box>
               </Box>
               <CustomTabPanel value={value} index={0}>
                 <Box
                   style={{
-                    background: "#FFFFFF14",
-                    border: "1px solid white",
-                    height: "162px",
-                    padding: "0px",
-                    gap: "33px",
-                    borderRadius: "20px",
+                    gap: "15px",
                     opacity: 1,
+                    display: "flex",
+                    flexDirection: "column",
                   }}
                 >
-                  <Paper
-                    sx={{
-                      p: 2,
-                      margin: "auto",
-                      // maxWidth: 500,
-                      flexGrow: 1,
-                      backgroundColor: "transparent",
-                    }}
-                  >
-                    <Grid container spacing={2}>
-                      <Grid item>
-                        <ButtonBase
-                          sx={{
-                            width: 230,
-                            height: 128,
-                            border: "1px",
-                            borderRadius: "20px",
-                          }}
-                        >
-                          <Img
-                            alt="complex"
-                            src="https://qph.cf2.quoracdn.net/main-qimg-c6bb3257e87d07f96732bfd3e113e712"
-                          />
-                        </ButtonBase>
-                      </Grid>
-                      <Grid item xs={12} sm container>
-                        <Grid item xs container direction="column" spacing={2}>
-                          <Grid item xs>
-                            <Typography
-                              gutterBottom
-                              variant="subtitle1"
-                              component="div"
-                              color={"#F6F6F7"}
-                            >
-                              NFT AIRPOD
-                            </Typography>
-                            <Typography
-                              variant="body2"
-                              color={"#ADB9C7"}
-                              gutterBottom
-                            >
-                              December 01, 2021, 4:20AM to 4:20PM EST{" "}
-                              <span
-                                style={{ color: "red", marginLeft: "1rem" }}
-                              >
-                                Inactive
-                              </span>{" "}
-                            </Typography>
-                            <Typography variant="body2" color={"#F6F6F7"}>
-                              10 Participants{" "}
-                            </Typography>
-                            <Typography
-                              variant="body2"
-                              color="text.secondary"
-                            ></Typography>
-                          </Grid>
-                          <Grid item>
-                            <Typography
-                              sx={{ cursor: "pointer" }}
-                              variant="body2"
-                            >
-                              Remove
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                        <Grid item>
-                          <Typography
-                            variant="subtitle1"
-                            component="div"
-                            color={"#F6F6F7"}
-                          >
-                            <MoreVertIcon />
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Paper>{" "}
+                  {cards?.map((cardDetails, index) => (
+                    <DashboardCardsWithAllParameter 
+                    cardDetails={cardDetails}
+                    />
+                  ))}
                 </Box>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={1}>
-                Item Two
+              <Box
+                  style={{
+                    gap: "15px",
+                    opacity: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  {cards?.map((cardDetails, index) => (
+                    <DashboardCardsWithAllParameter 
+                    cardDetails={cardDetails}
+                    />
+                  ))}
+                </Box>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={2}>
-                Item Three
+              <Box
+                  style={{
+                    gap: "15px",
+                    opacity: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  {cards?.map((cardDetails, index) => (
+                    <DashboardCardsWithAllParameter 
+                    cardDetails={cardDetails}
+                    />
+                  ))}
+                </Box>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={3}>
-                Item Three
+              <Box
+                  style={{
+                    gap: "15px",
+                    opacity: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  {cards?.map((cardDetails, index) => (
+                    <DashboardCardsWithAllParameter 
+                    cardDetails={cardDetails}
+                    />
+                  ))}
+                </Box>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={4}>
-                Item Three
-              </CustomTabPanel>
+              <Box
+                  style={{
+                    gap: "15px",
+                    opacity: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  {cards?.map((cardDetails, index) => (
+                    <DashboardCardsWithAllParameter 
+                    cardDetails={cardDetails}
+                    />
+                  ))}
+                </Box>              </CustomTabPanel>
             </Box>
           </Grid>
         </Grid>
@@ -359,18 +413,19 @@ const Dashboard = () => {
             alignItems: "center",
           }}
         >
+          {paginationSize > 0 && (
           <Pagination
             count={paginationSize}
             page={pageNo}
             onChange={handlePageChange}
-
             size="small"
             sx={{
               "& .MuiPaginationItem-root": {
-                color: "white", // Change the color of pagination items
+                color: "white", 
               },
             }}
           />
+          )}
         </Grid>
       </Paper>
     </Grid>

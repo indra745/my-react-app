@@ -2,20 +2,22 @@
     margin:0;
     padding:0;
     text-decoration: none;
-    
 }
 .container{
     display:flex;
+
 }
 main{
     width: 100%;
+    /* height:100%; */
     padding: 20px;
     background: rgb(3,4,11);
 background: linear-gradient(90deg, rgba(3,4,11,1) 0%, rgba(28,56,95,1) 100%, rgba(3,3,43,1) 100%);
+overflow-y:scroll;
 }
 .sidebar{
     color: #fff;
-    height: 100vh;
+    height: 60rem;
     width: 200px;
     background-color: #D9D9D90F;
     background: rgb(3,4,11);
