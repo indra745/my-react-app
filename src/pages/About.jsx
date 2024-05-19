@@ -1,5 +1,5 @@
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState,useMemo } from "react";
 import CreateEventPageLeftSection from "./CreateEventPageLeftSection.jsx";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { Editor } from "react-draft-wysiwyg";
@@ -11,17 +11,11 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import Autocomplete from '@mui/material/Autocomplete';
 import { convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
-const tags = [
-    { title: 'play2earn' },
-    { title: 'cosmos'},
-    { title: 'defi'},
-    { title: 'nft' },
-    { title: 'harmony' },
-    { title: 'DID' },
+import axios from "axios";
 
 
+const tags = ['DID', 'harmony', 'nft','defi','cosmos'];
 
-  ];
 
 const About = () => {
   const [name, setName] = useState("");
@@ -34,21 +28,7 @@ console.log(file,editorContent);
     setName(event.target.value);
   };
 
-//   const fileInputRef = useRef(null);
 
-//   const handleInputFile = (event) => {
-//     const files = event.target.files;
-//     if (files.length === 0) {
-//       return;
-//     }
-//     const selectedFile = files[0];
-//     if (selectedFile && selectedFile.size <= 400 * 1024) {
-//       // 400 KB
-//       setFile(selectedFile);
-//     } else if (selectedFile) {
-//       alert("File size exceeds 400kb limit.");
-//     }
-//   };
 
 const handleInputFile = (event) => {
     const files = event.target.files;
@@ -72,16 +52,102 @@ const handleInputFile = (event) => {
 
  
 
-  const onEditorStateChange = (editorState) => {
+  const [selectedDateTime, setSelectedDateTime] = useState(null);
+
+  const handleDateTimeChange = (newDateTime) => {
+    // const formattedDateTime = dayjs(newDateTime).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+    setSelectedDateTime(newDateTime);
+  };
+
+  const [selectedDateTimetwo, setSelectedDateTimetwo] = useState(null);
+
+  const handleDateTimeChangetwo = (newDateTime) => {
+    // const formattedDateTime = dayjs(newDateTime).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+    setSelectedDateTimetwo(newDateTime);
+  };
+  console.log(selectedDateTimetwo);
+
+
+
+const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
-    // Retrieve the content of the editor as HTML
-  const contentState = editorState.getCurrentContent();
-  const rawContentState = convertToRaw(contentState);
-  const htmlContent = draftToHtml(rawContentState);
-  // Store the HTML content in your state or wherever you need it
-  setEditorContent(htmlContent);
-  }; // Added function to handle editor state change
-console.log();
+    const contentState = editorState.getCurrentContent();
+    const rawContentState = convertToRaw(contentState);
+    const htmlContent = draftToHtml(rawContentState);
+    const plainTextContent = htmlContent.replace(/<\/?[^>]+(>|$)/g, "");
+    setEditorContent(plainTextContent);
+  };
+  console.log("editorContent",editorContent);
+
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  const handleTagsChange = (event, newValue) => {
+    setSelectedTags(newValue);
+     // Output the selected tags array
+  };
+  console.log(selectedTags);
+
+const headersGetEvent = useMemo(() => ({
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3YWxsZXRBZGRyZXNzIjoiMHgzQjI2NjdjRDRiNjAxMkU2YkFGNzNhMGExYzcxRjA5MDdDY0UzNjg0IiwiZGlkIjoiZGlkOmhpZDp0ZXN0bmV0OjB4M0IyNjY3Y0Q0YjYwMTJFNmJBRjczYTBhMWM3MUYwOTA3Q2NFMzY4NCIsImlkIjoiNjYzYTg1OGE1MjQwOTcyM2I2NzllNDk1IiwiaWF0IjoxNzE1NTU3NDc1LCJleHAiOjE3MTU2NDM4NzV9.Rj_v43Aum617zer_2D44JH6Ma0lcTSHjGY0R_2mn39Q`,
+    "Content-Type": "application/json",
+    "accept": "application/json",
+
+  }), []);
+
+const CreateEventApi = async () => {
+    try {
+      const payload = {
+        communityId: "662a2311f1937f80209e5345",
+        eventName: name,
+        banner: file,
+        startDate: "2024-02-13T07:06:50.402Z",
+        endDate: "2025-02-13T07:06:50.402Z",
+        isDraft: false,
+        isPublished: true,
+        tags: selectedTags,
+        "isOpenToAll": false,
+        referral: {
+          refereeXp: 0,
+          referralXp: 0,
+          difficultyLevel: 0,
+          limit: 0
+        },
+        rewards: [
+          {
+            rewardType: "NFT",
+            title: "ERC720 worth 50$",
+            winnerCount: 0,
+            rewardPerPerson: 0,
+            distributionType: "FYRE",
+          }
+        ],
+        description: editorContent,
+      };
+      axios({
+        method: "post",
+        url: `https://api.fyre-stage.hypersign.id/api/v1/event`,
+        headers: headersGetEvent, 
+        data: payload, 
+      })
+        .then(function (response) {
+          console.log("response.data", response.data.message);
+
+          if (response?.data?.success) {
+
+          }
+        })
+        .catch((err) => {
+          const { response } = err;
+          console.log("Res=>", { response, err });
+          const { data } = response;
+          const mess = data.message;
+          console.log(mess);
+        });
+    } catch (error) {
+    }
+  };
+
+  console.log(CreateEventApi);
 
   return (
     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -220,7 +286,10 @@ console.log();
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer components={["DateTimePicker"]}>
                     <DateTimePicker
-                      label="e.g 2022-02-12 15:05"                />
+                      label="select start date"  
+                      value={selectedDateTime}
+                      onChange={handleDateTimeChange}     
+                      renderInput={(props) => <TextField {...props} />}          />
                   </DemoContainer>
                 </LocalizationProvider>
                 </Box>
@@ -235,7 +304,9 @@ console.log();
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer components={["DateTimePicker"]}>
                     <DateTimePicker
-                      label="e.g 2022-02-12 15:05"                />
+                      label="select end date " value={selectedDateTimetwo}
+                      onChange={handleDateTimeChangetwo}     
+                      renderInput={(props) => <TextField {...props} />}                />
                   </DemoContainer>
                 </LocalizationProvider>
                 </Box>
@@ -258,11 +329,12 @@ console.log();
       limitTags={2}
       id="multiple-limit-tags"
       options={tags}
-      getOptionLabel={(option) => option.title}
-      defaultValue={[tags[0]]}
+    
       renderInput={(params) => (
         <TextField {...params}  placeholder="Favorites" />
       )}
+      value={selectedTags}
+          onChange={handleTagsChange}
       sx={{ width: '550px', background:"white" }}
     />
             </Box>
@@ -270,7 +342,7 @@ console.log();
 
 
           <Grid item xs={12} style={{ position: "fixed", bottom: "20px", left: "85%", width: "100%", zIndex: 999, }}>
-    <Button variant="contained" color="primary">Save</Button>
+    <Button variant="contained" color="primary" onClick={CreateEventApi}>Save</Button>
   </Grid>
         </Grid>
       </Grid>
