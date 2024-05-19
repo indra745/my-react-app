@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef,useCallback  } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -22,7 +22,7 @@ import { styled } from "@mui/material/styles";
 import { GET_EVENT_LIST } from "../utils/urls.js";
 import DashboardUpperBox from "./DashboardUpperBox.jsx";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import DashboardCardsWithAllParameter from "./DashboardCardsWithAllParameter.jsx"
+import DashboardCardsWithAllParameter from "./DashboardCardsWithAllParameter.jsx";
 const Img = styled("img")({
   margin: "auto",
   display: "block",
@@ -139,7 +139,10 @@ const Dashboard = () => {
         headers: headersGetEvent,
       })
         .then((response) => {
-          if (response?.data?.success && response?.data?.message === "Success") {
+          if (
+            response?.data?.success &&
+            response?.data?.message === "Success"
+          ) {
             const totalresponse_length = response?.data?.total;
             const countPages = Math.ceil(totalresponse_length / pSize);
             setpaginationSize(countPages);
@@ -157,7 +160,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     getEventDetails();
-  }, [pageNo, pSize,getEventDetails]);
+  }, [pageNo, pSize, getEventDetails]);
 
   const handleChange = (event, newValue) => {
     setpartnersearch("");
@@ -169,14 +172,13 @@ const Dashboard = () => {
   };
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      handleSearch(); 
+      handleSearch();
     }
   };
   const searchInputRef = useRef(null); // Create a ref for the search input
   const handleInputChange = (event) => {
     if (event.target.value === "") {
       getEventDetails();
-
     }
   };
 
@@ -330,14 +332,12 @@ const Dashboard = () => {
                   }}
                 >
                   {cards?.map((cardDetails, index) => (
-                    <DashboardCardsWithAllParameter 
-                    cardDetails={cardDetails}
-                    />
+                    <DashboardCardsWithAllParameter cardDetails={cardDetails} />
                   ))}
                 </Box>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={1}>
-              <Box
+                <Box
                   style={{
                     gap: "15px",
                     opacity: 1,
@@ -346,14 +346,12 @@ const Dashboard = () => {
                   }}
                 >
                   {cards?.map((cardDetails, index) => (
-                    <DashboardCardsWithAllParameter 
-                    cardDetails={cardDetails}
-                    />
+                    <DashboardCardsWithAllParameter cardDetails={cardDetails} />
                   ))}
                 </Box>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={2}>
-              <Box
+                <Box
                   style={{
                     gap: "15px",
                     opacity: 1,
@@ -362,14 +360,12 @@ const Dashboard = () => {
                   }}
                 >
                   {cards?.map((cardDetails, index) => (
-                    <DashboardCardsWithAllParameter 
-                    cardDetails={cardDetails}
-                    />
+                    <DashboardCardsWithAllParameter cardDetails={cardDetails} />
                   ))}
                 </Box>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={3}>
-              <Box
+                <Box
                   style={{
                     gap: "15px",
                     opacity: 1,
@@ -378,14 +374,12 @@ const Dashboard = () => {
                   }}
                 >
                   {cards?.map((cardDetails, index) => (
-                    <DashboardCardsWithAllParameter 
-                    cardDetails={cardDetails}
-                    />
+                    <DashboardCardsWithAllParameter cardDetails={cardDetails} />
                   ))}
                 </Box>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={4}>
-              <Box
+                <Box
                   style={{
                     gap: "15px",
                     opacity: 1,
@@ -394,11 +388,10 @@ const Dashboard = () => {
                   }}
                 >
                   {cards?.map((cardDetails, index) => (
-                    <DashboardCardsWithAllParameter 
-                    cardDetails={cardDetails}
-                    />
+                    <DashboardCardsWithAllParameter cardDetails={cardDetails} />
                   ))}
-                </Box>              </CustomTabPanel>
+                </Box>{" "}
+              </CustomTabPanel>
             </Box>
           </Grid>
         </Grid>
@@ -414,17 +407,18 @@ const Dashboard = () => {
           }}
         >
           {paginationSize > 0 && (
-          <Pagination
-            count={paginationSize}
-            page={pageNo}
-            onChange={handlePageChange}
-            size="small"
-            sx={{
-              "& .MuiPaginationItem-root": {
-                color: "white", 
-              },
-            }}
-          />
+            <Pagination
+              count={paginationSize}
+              page={pageNo}
+              onChange={handlePageChange}
+              size="small"
+              sx={{
+                background:'none !important',
+                "& .MuiPaginationItem-root": {
+                  color: "white",
+                },
+              }}
+            />
           )}
         </Grid>
       </Paper>
