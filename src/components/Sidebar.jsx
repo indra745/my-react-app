@@ -1,16 +1,7 @@
 
 import { Avatar } from '@mui/material';
 import React, { useState } from 'react';
-import {
-    FaTh,
-    FaBars,
-    FaUserAlt,
-    FaRegChartBar,
-    FaCommentAlt,
-    FaShoppingBag,
-    FaThList
-}from "react-icons/fa";
-import { NavLink } from 'react-router-dom';
+
 import CampaignIcon from '@mui/icons-material/Campaign';
 import HelpIcon from '@mui/icons-material/Help';
 const Sidebar = ({children}) => {

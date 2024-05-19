@@ -1,5 +1,5 @@
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import CreateEventPageLeftSection from "./CreateEventPageLeftSection.jsx";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { Editor } from "react-draft-wysiwyg";
@@ -9,7 +9,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import Autocomplete from '@mui/material/Autocomplete';
-import { EditorState, convertToRaw } from 'draft-js';
+import { convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 const tags = [
     { title: 'play2earn' },
@@ -28,13 +28,13 @@ const About = () => {
   const [file, setFile] = useState("");
   const [editorState, setEditorState] = useState(null); // Added state for the editor
   const [editorContent, setEditorContent] = useState("");
-
+console.log(file,editorContent);
   const maxLength = 20;
   const handleInputChange = (event) => {
     setName(event.target.value);
   };
 
-  const fileInputRef = useRef(null);
+//   const fileInputRef = useRef(null);
 
 //   const handleInputFile = (event) => {
 //     const files = event.target.files;
@@ -70,9 +70,7 @@ const handleInputFile = (event) => {
   };
   
 
-  const handleClick = () => {
-    fileInputRef.current.click();
-  };
+ 
 
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
