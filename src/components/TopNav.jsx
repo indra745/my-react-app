@@ -1,20 +1,13 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import "../style/TopNav.css";
 import { FaBars } from "react-icons/fa";
 import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
-import FolderIcon from "@mui/icons-material/Folder";
 import AddAlertIcon from '@mui/icons-material/AddAlert';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import Person2Icon from '@mui/icons-material/Person2';
 const TopNav = () => {
-  const menuData = [
-    {
-      path: "/",
-      name: "Home",
-    },
-  ];
+  
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   return (

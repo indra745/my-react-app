@@ -10,25 +10,20 @@ import {
   Typography,
   Paper,
   Grid,
-  Button,
   Pagination,
   InputAdornment,
-  Input,
-  Avatar,
+  
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import ButtonBase from "@mui/material/ButtonBase";
-import { styled } from "@mui/material/styles";
 import { GET_EVENT_LIST } from "../utils/urls.js";
 import DashboardUpperBox from "./DashboardUpperBox.jsx";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DashboardCardsWithAllParameter from "./DashboardCardsWithAllParameter.jsx";
-const Img = styled("img")({
-  margin: "auto",
-  display: "block",
-  maxWidth: "100%",
-  maxHeight: "100%",
-});
+// const Img = styled("img")({
+//   margin: "auto",
+//   display: "block",
+//   maxWidth: "100%",
+//   maxHeight: "100%",
+// });
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -68,7 +63,7 @@ const Dashboard = () => {
   const [paginationSize, setpaginationSize] = React.useState(0);
   const [cards, setCards] = useState([]);
   const [partnersearch, setpartnersearch] = useState(""); // Initialize with an empty string
-
+console.log(setpSize);
   const headersGetEvent = {
     Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3YWxsZXRBZGRyZXNzIjoiMHgzQjI2NjdjRDRiNjAxMkU2YkFGNzNhMGExYzcxRjA5MDdDY0UzNjg0IiwiZGlkIjoiZGlkOmhpZDp0ZXN0bmV0OjB4M0IyNjY3Y0Q0YjYwMTJFNmJBRjczYTBhMWM3MUYwOTA3Q2NFMzY4NCIsImlkIjoiNjYzYTg1OGE1MjQwOTcyM2I2NzllNDk1IiwiaWF0IjoxNzE1NTU3NDc1LCJleHAiOjE3MTU2NDM4NzV9.Rj_v43Aum617zer_2D44JH6Ma0lcTSHjGY0R_2mn39Q`,
     "Content-Type": "application/json",
