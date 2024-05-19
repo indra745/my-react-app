@@ -105,7 +105,7 @@ console.log(setpSize);
       .catch((e) => {
         console.error(e);
       });
-  }, [value, pageNo, pSize]);
+  }, [value, pageNo, pSize,headersGetEvent]);
 
   const handleSearch = useCallback(() => {
     let url;
@@ -151,7 +151,7 @@ console.log(setpSize);
     } else {
       getEventDetails();
     }
-  }, [partnersearch, value, pageNo, pSize, getEventDetails]);
+  }, [partnersearch, value, pageNo, pSize, getEventDetails,headersGetEvent]);
 
   useEffect(() => {
     getEventDetails();
