@@ -9,21 +9,18 @@ const Sidebar = ({children}) => {
     const[isOpen ,setIsOpen] = useState(true);
     const toggle = () => setIsOpen (!isOpen);
     const menuItem=[
-        // {
-        //     path:"/",
-        //     name:"Nibiru",
-        //     icon:<Avatar alt="Travis Howard" src="/sidebar_avatar_img.svg" onClick={toggle}/>
-        // },
+        
         {
             path:"/",
             name:"Event",
             icon:<CampaignIcon/>
-        },
-        {
-            path:"/",
-            name:"Help?",
-            icon:<HelpIcon/>
         }
+        // ,
+        // {
+        //     path:"/",
+        //     name:"Help?",
+        //     icon:<HelpIcon/>
+        // }
         
     ]
     return (
@@ -34,7 +31,7 @@ const Sidebar = ({children}) => {
                            <div ><Avatar alt="Travis Howard" src="/sidebar_avatar_img.svg" onClick={toggle}/></div>
                            <div>
                            <div style={{display: isOpen ? "block" : "none", color:"white",marginLeft:"1rem"}} >Nibiru  </div>
-                           <div style={{border:"1px solid white", color:"white", borderRadius:"30px",textAlign:"center",marginLeft:"1rem",marginTop:"0.5rem"}}>owner</div>
+                           <div style={{border:"1px solid white", color:"white", borderRadius:"30px",textAlign:"center",marginLeft:"1rem",marginTop:"0.5rem",width:"3rem"}}>owner</div>
                            </div>
                        </div>
                
@@ -46,6 +43,13 @@ const Sidebar = ({children}) => {
                        </NavLink>
                    ))
                }
+
+<NavLink to={"/"}  className="link" activeclassName="active" style={{marginTop:"20rem"}}>
+                           <div className="icon"><HelpIcon/></div>
+                           <div style={{display: isOpen ? "block" : "none"}} className="link_text">Help ?</div>
+                       </NavLink>
+
+
            </div>
            <main>{children}</main>
         </div>

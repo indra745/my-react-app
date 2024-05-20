@@ -12,12 +12,16 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import axios from "axios";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const tags = ['DID', 'harmony', 'nft','defi','cosmos'];
 
 
 const About = () => {
+    const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [file, setFile] = useState("");
   const [editorState, setEditorState] = useState(null); // Added state for the editor
@@ -55,17 +59,17 @@ const handleInputFile = (event) => {
   const [selectedDateTime, setSelectedDateTime] = useState(null);
 
   const handleDateTimeChange = (newDateTime) => {
-    // const formattedDateTime = dayjs(newDateTime).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
-    setSelectedDateTime(newDateTime);
-  };
+    setSelectedDateTime(newDateTime)
+    // console.log("Selected Start Date:", newDateTime ? newDateTime.toISOString() : null);
+};
 
-  const [selectedDateTimetwo, setSelectedDateTimetwo] = useState(null);
+
+  const [selectedEndTime, setselectedEndTime] = useState(null);
 
   const handleDateTimeChangetwo = (newDateTime) => {
     // const formattedDateTime = dayjs(newDateTime).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
-    setSelectedDateTimetwo(newDateTime);
+    setselectedEndTime(newDateTime);
   };
-  console.log(selectedDateTimetwo);
 
 
 
@@ -94,18 +98,21 @@ const headersGetEvent = useMemo(() => ({
 
   }), []);
 
-const CreateEventApi = async () => {
+const CreateEventApiAx = async () => {
+    const str=selectedDateTime.toISOString();
+    const edr=selectedEndTime.toISOString();
+
     try {
       const payload = {
         communityId: "662a2311f1937f80209e5345",
         eventName: name,
         banner: file,
-        startDate: "2024-02-13T07:06:50.402Z",
-        endDate: "2025-02-13T07:06:50.402Z",
+        startDate: str,
+        endDate: edr,
         isDraft: false,
         isPublished: true,
         tags: selectedTags,
-        "isOpenToAll": false,
+        isOpenToAll: false,
         referral: {
           refereeXp: 0,
           referralXp: 0,
@@ -133,6 +140,7 @@ const CreateEventApi = async () => {
           console.log("response.data", response.data.message);
 
           if (response?.data?.success) {
+            toast.success(response?.data?.message);
 
           }
         })
@@ -141,13 +149,23 @@ const CreateEventApi = async () => {
           console.log("Res=>", { response, err });
           const { data } = response;
           const mess = data.message;
+          toast.error(mess);
+
           console.log(mess);
         });
     } catch (error) {
+        toast.error("error");
+
     }
   };
 
-  console.log(CreateEventApi);
+  const CreateEventApi =()=>{
+    CreateEventApiAx(); 
+    navigate("/");
+
+
+ }
+
 
   return (
     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -304,7 +322,8 @@ const CreateEventApi = async () => {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer components={["DateTimePicker"]}>
                     <DateTimePicker
-                      label="select end date " value={selectedDateTimetwo}
+                      label="select end date " 
+                      value={selectedEndTime}
                       onChange={handleDateTimeChangetwo}     
                       renderInput={(props) => <TextField {...props} />}                />
                   </DemoContainer>
@@ -331,7 +350,7 @@ const CreateEventApi = async () => {
       options={tags}
     
       renderInput={(params) => (
-        <TextField {...params}  placeholder="Favorites" />
+        <TextField {...params}  placeholder="Tags" />
       )}
       value={selectedTags}
           onChange={handleTagsChange}
