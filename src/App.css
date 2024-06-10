@@ -5,7 +5,8 @@
 }
 .container{
     display:flex;
-
+    background: rgb(3,4,11);
+    background: linear-gradient(90deg, rgba(3,4,11,1) 0%, rgba(28,56,95,1) 100%, rgba(3,3,43,1) 100%);
 }
 main{
     width: 100%;
@@ -18,12 +19,22 @@ background: linear-gradient(90deg, rgba(3,4,11,1) 0%, rgba(28,56,95,1) 100%, rgb
 .sidebar{
     color: #080813;
     /* height: 60rem; */
+    border-top-right-radius: 1rem;
+    border-top-left-radius: 1rem;
     width: 19rem;
-    background-color: #D9D9D90F;
-    background: rgb(3,4,11);
-    border: 0.1px solid;
-    background: rgb(6 8 17);
+    /* background-color: #D9D9D90F; */
+    /* background: rgb(3,4,11); */
+    border: 1px solid;
+
+    border-image-source: linear-gradient(204.92deg, rgba(20, 20, 20, 0) -3.83%, #9A9999 25.64%, rgba(17, 17, 17, 0) 75.14%);
+    
+        /* background: rgb(6 8 17); */
     /* border-radius: 0 20px 0 0; */
+    background: #D9D9D90F;
+    
+
+
+
     transition: all 0.5s;
     
 }
@@ -43,7 +54,7 @@ background: linear-gradient(90deg, rgba(3,4,11,1) 0%, rgba(28,56,95,1) 100%, rgb
 .link{
     display: flex;
     color: #fff;
-    padding: 10px 15px;
+    padding: 14px 13px;
     gap: 15px;
     transition: all 0.5s;
     background:#FFFFFF14 !important;
@@ -52,9 +63,10 @@ background: linear-gradient(90deg, rgba(3,4,11,1) 0%, rgba(28,56,95,1) 100%, rgb
     margin-right: 0.5rem;
     border: 1px solid;
     border-image-source: linear-gradient(116.48deg, #5A5A5A 1.7%, rgba(99, 99, 99, 0) 85.9%);
-border-radius: 8px;
+border-radius: 20px;
 
 }
+
 .link:hover{
     background:#7a7a7a;
     color: #000;

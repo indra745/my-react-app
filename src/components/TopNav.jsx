@@ -15,7 +15,7 @@ const TopNav = () => {
       <label className="logo"><Avatar sx={{ bgcolor: '#FFFFFF0F' }} src="/tailwindlogo.jpg" />
           </label>
       <div className="bars">
-        <FaBars onClick={toggle} />
+        <FaBars onClick={toggle} style={{color:"white"}}/>
       </div>
       <div className="menu" style={{ left: isOpen ? "-100%" : "0" }}>
         <div className="list_item">
