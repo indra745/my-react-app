@@ -54,7 +54,7 @@ background: linear-gradient(90deg, rgba(3,4,11,1) 0%, rgba(28,56,95,1) 100%, rgb
 .link{
     display: flex;
     color: #fff;
-    padding: 10px 15px;
+    padding: 14px 13px;
     gap: 15px;
     transition: all 0.5s;
     background:#FFFFFF14 !important;

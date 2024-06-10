@@ -15,12 +15,14 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "@mui/material";
 
 const tags = ['DID', 'harmony', 'nft','defi','cosmos'];
 
 
 const About = () => {
     const navigate = useNavigate();
+    const isSmallScreen = useMediaQuery("(max-width:645px)");
 
   const [name, setName] = useState("");
   const [file, setFile] = useState("");
@@ -168,12 +170,24 @@ const CreateEventApiAx = async () => {
 
 
   return (
-    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-      <Grid item xs={3}>
+    <Grid container style={{ height: '100vh' }} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+      <Grid item xs={3} sx={{ borderRight: '2px solid #1A1D27', height: '100%',display:isSmallScreen?"none":"grid" }}>
         <CreateEventPageLeftSection />
       </Grid>
-      <Grid item xs={9} style={{ overflowY: "auto", position: "relative", scrollbarWidth:"none" }}>
-        <Grid container spacing={4}>
+      <Grid item xs={9} style={{ 
+        // overflowY: "auto", 
+        // position: "relative", 
+        // scrollbarWidth:"none" 
+        }}>
+        <Grid container spacing={4} sx={{
+        maxHeight: '600px',
+        overflowY: 'auto',
+        '&::-webkit-scrollbar': {
+          display: 'none'
+        },
+        '-ms-overflow-style': 'none',  // for Internet Explorer and Edge
+        'scrollbar-width': 'none'  // for Firefox
+      }}>
           <Grid item xs={12}>
             <Box
               p={4}
@@ -278,9 +292,15 @@ const CreateEventApiAx = async () => {
                 editorClassName="editorClassName"
                 onEditorStateChange={onEditorStateChange} // Changed to use the local
                 editorStyle={{
-                  backgroundColor: "white",
+                  backgroundColor: "#1A1D27",
                   minHeight: "150px",
-                  color: "black",
+                  color: "#ADB9C7",
+                }} // Set background color to white
+                toolbarStyle={{
+                  backgroundColor: "#1A1D27",
+                  // minHeight: "150px",
+                  border:"none",
+                  color: "#ADB9C7",
                 }} // Set background color to white
               />
             </Box>

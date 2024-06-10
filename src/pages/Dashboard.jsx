@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback,useMemo } from "react";
+import { useMediaQuery } from "@mui/material";
 
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -57,6 +58,8 @@ function a11yProps(index) {
   };
 }
 const Dashboard = () => {
+  const isSmallScreen = useMediaQuery("(max-width:542px)");
+
   const [value, setValue] = React.useState(0);
   const [pageNo, setpageNo] = React.useState(1);
   const [pSize, setpSize] = React.useState(3);
@@ -237,17 +240,23 @@ console.log(setpSize);
                 </Typography>
               </Grid>
             </Grid>
-            <Box sx={{ width: "100%" }}>
-              <Box
+            <Grid sx={{ width: "100%" }}>
+              <Grid
+                // style={{
+                //   display: "flex",
+                //   flexDirection: "row",
+                //   justifyContent: "space-between",
+                // }}
                 style={{
                   display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
+                  flexDirection: isSmallScreen ? "column" : "row",
+                  justifyContent: isSmallScreen ? "center" : "space-between",
+                  alignItems: isSmallScreen ? "flex-start" : "center",
                 }}
               >
-                <Box
+                <Grid
                   sx={{
-                    maxWidth: { xs: 400, sm: 700 },
+                    maxWidth: { xs: 300, sm:  700 },
                     bgcolor: "transparent",
                   }}
                 >
@@ -292,12 +301,13 @@ console.log(setpSize);
                       sx={{ color: value === 4 ? "white" : "#ADB9C7" }}
                     />
                   </Tabs>
-                </Box>
-                <Box>
+                  
+                </Grid>
+                <Grid>
                   <input
                     style={{
                       height: "38px",
-                      width: "20rem",
+                      width: isSmallScreen ? "15rem" : "20rem",
                       borderRadius: "25px",
                       color: "white",
                       outline: "none",
@@ -305,6 +315,8 @@ console.log(setpSize);
                       paddingRight: "10px",
                       border: "1px solid rgba(196, 196, 196, 1)",
                       backgroundColor: "transparent",
+                      marginTop: isSmallScreen ? "10px" : "0",
+
                     }}
                     type="text"
                     name=""
@@ -321,8 +333,9 @@ console.log(setpSize);
                     ref={searchInputRef}
                     onInput={handleInputChange}
                   />
-                </Box>
-              </Box>
+                </Grid>
+              </Grid>
+              
               <CustomTabPanel value={value} index={0}>
                 <Box
                   style={{
@@ -393,7 +406,7 @@ console.log(setpSize);
                   ))}
                 </Box>{" "}
               </CustomTabPanel>
-            </Box>
+            </Grid>
           </Grid>
         </Grid>
         <Grid

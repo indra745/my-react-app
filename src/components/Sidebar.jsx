@@ -1,5 +1,5 @@
 import { Avatar, Box } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Divider from "@mui/material/Divider";
 import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
@@ -7,8 +7,12 @@ import CampaignIcon from "@mui/icons-material/Campaign";
 import HelpIcon from "@mui/icons-material/Help";
 import { Height } from "@mui/icons-material";
 import Fab from '@mui/material/Fab';
+import { useMediaQuery } from "@mui/material";
+
 
 const Sidebar = ({ children }) => {
+  const isSmallScreen = useMediaQuery("(max-width:770px)");
+
     
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
@@ -25,6 +29,12 @@ const Sidebar = ({ children }) => {
     //     icon:<HelpIcon/>
     // }
   ];
+
+  useEffect(() => {
+    if (isSmallScreen) {
+      setIsOpen(false);
+    }
+  }, [isSmallScreen]);
   return (
     <div className="container">
       <div style={{ width: isOpen ? "300px" : "70px" }} className="sidebar">
@@ -104,19 +114,16 @@ const Sidebar = ({ children }) => {
             <HelpRoundedIcon style={{color:"#2656D6"}}/>
             </Box>
           </div>
-          {/* <div
-            style={{ display: isOpen ? "block" : "none" }}
-            className="link_text"
-          >
-            Help ?
-          </div> */}
-          <div>
+          <div style={{display:isOpen?"block":"none"}}>
+
+          <div >
           <div style={{ display: isOpen ? "block" : "none" }}>Need help?</div>
           <div style={{ display: isOpen ? "block" : "none" }}>Please check our docs</div>
           </div>
-          <div style={{ display: isOpen ? "block" : "none", display: 'flex', justifyContent: 'center', alignItems: 'center', }}><Fab variant="extended" style={{background:"white",height:"1.7rem"}}>
+          <div style={{  display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop:"1rem" }}><Fab variant="extended" style={{background:"white",height:"1.7rem",width:"100%"}}>
         DOCUMENTATION
-      </Fab></div>
+      </Fab></div></div>
+
 
 
         </NavLink>
