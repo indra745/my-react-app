@@ -174,14 +174,15 @@ const CreateEventApiAx = async () => {
       <Grid item xs={3} sx={{ borderRight: '2px solid #1A1D27', height: '100%',display:isSmallScreen?"none":"grid" }}>
         <CreateEventPageLeftSection />
       </Grid>
-      <Grid item xs={9} style={{ 
+      <Grid item xs={isSmallScreen ? 12 : 9} style={{ 
         // overflowY: "auto", 
         // position: "relative", 
         // scrollbarWidth:"none" 
         }}>
         <Grid container spacing={4} sx={{
-        maxHeight: '600px',
-        overflowY: 'auto',
+maxHeight: '600px', // Adjusted height to accommodate footer
+height:"600px",
+overflowY: 'auto',
         '&::-webkit-scrollbar': {
           display: 'none'
         },
@@ -380,9 +381,18 @@ const CreateEventApiAx = async () => {
           </Grid>
 
 
-          <Grid item xs={12} style={{ position: "fixed", bottom: "20px", left: "85%", width: "100%", zIndex: 999, }}>
+          
+  {/* <Grid item xs={12} style={{ position: "fixed", bottom: "0", left: "0", width: "100%", backgroundColor: "#020610", padding: "20px", zIndex: 999 }}>
+  <Box display="flex" justifyContent="flex-end">
     <Button variant="contained" color="primary" onClick={CreateEventApi}>Save</Button>
-  </Grid>
+  </Box>
+</Grid> */}
+<Grid item xs={12} style={{ position: "fixed", bottom: "0", left: "425px",right:"0", width: "calc(100% - 425px)", backgroundColor: "#FFFFFF14", padding: "20px", zIndex: 1 }}>
+  <Box display="flex" justifyContent="flex-end">
+    <Button variant="contained" color="primary" style={{height:"32px",width:"192px",padding:"6px 16px 6px 16px" }} onClick={CreateEventApi}>Save</Button>
+  </Box>
+</Grid>
+
         </Grid>
       </Grid>
     </Grid>
