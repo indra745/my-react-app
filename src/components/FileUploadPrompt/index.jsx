@@ -22,9 +22,17 @@ function FileUploadPrompt() {
     <div className="file-uploader-prompt">
       <p className="file-upload-prompt">
         <span className="file-upload-instructions">{messages["drag__drop_or"]}</span>
-        <a onClick={handleUploadClick} className="upload-button-text-style" style={{cursor:"pointer"}}>
+        {/* <a onClick={handleUploadClick} className="upload-button-text-style" style={{cursor:"pointer"}}>
           {messages["click_upload"]}
-        </a>
+        </a> */}
+        <button 
+  onClick={handleUploadClick} 
+  className="upload-button-text-style" 
+  style={{cursor: "pointer", background: "none", border: "none", padding: 0, textDecoration: "underline", color: "blue"}}
+>
+  {messages["click_upload"]}
+</button>
+
         <span className="file-upload-instructions1">, </span>
         <span className="file-upload-instructions">{messages["max_size_400kb"]}</span>
       </p>
