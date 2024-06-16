@@ -15,16 +15,16 @@ function EventCreationSection() {
     // <div className="event-creation-section2">
     <Grid container spacing={2}>
           <Grid item xs={12} sm container>
-      <div className="event-creation-container">
+      <Grid className="event-creation-container">
         <p className="event-title-heading">{messages["create_events"]}</p>
-        <div className="event-creation-container1">
+        <Grid className="event-creation-container1">
           <p className="exciting-challenge-text">{messages["craft_annbsp_exciting_challenges_tasks_participant"]}</p>
           <Button className="prize-button" onClick={handleCreateEventClick}>
             <SvgIcon1 className="svg-container1" />
             {messages["create_event"]}
           </Button>
-        </div>
-      </div>
+        </Grid>
+      </Grid>
       </Grid>
         </Grid>
     // </div>
