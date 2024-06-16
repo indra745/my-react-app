@@ -1,11 +1,14 @@
 
 
 import React from "react";
+import "./style.css";
+import SvgIcon1 from "../components/EventCreationSection/icons/SvgIcon1";
 
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
 const DashboardUpperBox = () => {
   const navigate = useNavigate();
@@ -15,8 +18,8 @@ const DashboardUpperBox = () => {
   };
 
   return (
-    <Grid container spacing={2}>
-          <Grid item xs={12} sm container>
+    <Grid container spacing={2} p={3}>
+          <Grid item xs={12} sm container height={"10rem"} >
             <Grid
               item
               xs
@@ -43,9 +46,12 @@ const DashboardUpperBox = () => {
                     opacity: "0px",
                     color: "#F6F6F7",
                     font: "Poppins",
+                    font: '700 25.5px Poppins, sans-serif',
+  color: '#f6f6f7',
+  whiteSpace: 'pre-wrap'
                   }}
                 >
-                  Create Events
+                Create Events
                 </Typography>
 
                 <Typography
@@ -63,8 +69,8 @@ const DashboardUpperBox = () => {
               </Grid>
             </Grid>
             <Grid item style={{ display: "flex", alignItems: "center" }}>
-              <button
-                variant="contained"
+              <Button
+                // variant="contained"
                 onClick={handleCreateEventClick}
                 style={{
                   background: "#2656D6",
@@ -77,9 +83,9 @@ const DashboardUpperBox = () => {
                   padding: "1rem",
                 }}
               >
-                <AddIcon fontSize="small" style={{marginTop:"-0.2rem"}}/> {" "}
-                Create Event
-              </button>
+            <SvgIcon1 className="svg-container1" />
+            {" "}Create Event
+              </Button>
             </Grid>
           </Grid>
         </Grid>

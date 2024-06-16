@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback,useMemo } from "react";
-
+import { useMediaQuery } from "@mui/material";
+// import SearchIcon from '@mui/icons-material/Search';
 import PropTypes from "prop-types";
 import axios from "axios";
 
@@ -16,7 +17,9 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { GET_EVENT_LIST } from "../utils/urls.js";
+// import DashboardUpperBox from "../components/EventCreationSection/index.jsx";
 import DashboardUpperBox from "./DashboardUpperBox.jsx";
+
 import DashboardCardsWithAllParameter from "./DashboardCardsWithAllParameter.jsx";
 // const Img = styled("img")({
 //   margin: "auto",
@@ -57,6 +60,8 @@ function a11yProps(index) {
   };
 }
 const Dashboard = () => {
+  const isSmallScreen = useMediaQuery("(max-width:542px)");
+
   const [value, setValue] = React.useState(0);
   const [pageNo, setpageNo] = React.useState(1);
   const [pSize, setpSize] = React.useState(3);
@@ -189,10 +194,15 @@ console.log(setpSize);
         sx={{
           p: 2,
           flexGrow: 1,
+          // background: "transparent",
           background: "#FFFFFF14",
+
         }}
       >
+        
         <DashboardUpperBox />
+        
+
       </Paper>
 
       <Paper
@@ -219,35 +229,52 @@ console.log(setpSize);
                   gutterBottom
                   variant="subtitle1"
                   component="div"
+                  // style={{
+                  //   fontFamily: "Poppins",
+                  //   fontSize: "30px",
+                  //   fontWeight: 700,
+                  //   lineHeight: "45px",
+                  //   textAlign: "left",
+                  //   width: "215px",
+                  //   height: "45px",
+                  //   gap: "0px",
+                  //   opacity: "0px",
+                  //   color: "#F6F6F7",
+                  //   font: "Poppins",
+                  // }}
                   style={{
-                    fontFamily: "Poppins",
-                    fontSize: "30px",
-                    fontWeight: 700,
-                    lineHeight: "45px",
-                    textAlign: "left",
-                    width: "215px",
-                    height: "45px",
-                    gap: "0px",
-                    opacity: "0px",
-                    color: "#F6F6F7",
-                    font: "Poppins",
-                  }}
+  flex: '0 0 auto',
+  padding: '0',
+  paddingRight: '3rem',
+  // paddingLeft: '17.25rem',
+  margin: '0',
+  marginTop: '3.75rem',
+  font: '700 25.5px Poppins, sans-serif',
+  color: '#f6f6f7',
+  whiteSpace: 'pre-wrap'
+}}
                 >
                   Your Events
                 </Typography>
               </Grid>
             </Grid>
-            <Box sx={{ width: "100%" }}>
-              <Box
+            <Grid sx={{ width: "100%" }}>
+              <Grid
+                // style={{
+                //   display: "flex",
+                //   flexDirection: "row",
+                //   justifyContent: "space-between",
+                // }}
                 style={{
                   display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
+                  flexDirection: isSmallScreen ? "column" : "row",
+                  justifyContent: isSmallScreen ? "center" : "space-between",
+                  alignItems: isSmallScreen ? "flex-start" : "center",
                 }}
               >
-                <Box
+                <Grid
                   sx={{
-                    maxWidth: { xs: 400, sm: 700 },
+                    maxWidth: { xs: 300, sm:  700 },
                     bgcolor: "transparent",
                   }}
                 >
@@ -292,24 +319,27 @@ console.log(setpSize);
                       sx={{ color: value === 4 ? "white" : "#ADB9C7" }}
                     />
                   </Tabs>
-                </Box>
-                <Box>
+                  
+                </Grid>
+                <Grid>
                   <input
                     style={{
                       height: "38px",
-                      width: "20rem",
+                      width: isSmallScreen ? "15rem" : "20rem",
                       borderRadius: "25px",
                       color: "white",
                       outline: "none",
                       paddingLeft: "10px",
                       paddingRight: "10px",
                       border: "1px solid rgba(196, 196, 196, 1)",
-                      backgroundColor: "transparent",
+                      backgroundColor: "#FFFFFF14",
+                      marginTop: isSmallScreen ? "10px" : "0",
+
                     }}
                     type="text"
                     name=""
                     id=""
-                    placeholder="🔍  Search events by name or tags"
+                    placeholder="🔍 Search events by name or tags"
                     startAdornment={
                       <InputAdornment position="start">
                         <SearchIcon />
@@ -321,8 +351,9 @@ console.log(setpSize);
                     ref={searchInputRef}
                     onInput={handleInputChange}
                   />
-                </Box>
-              </Box>
+                </Grid>
+              </Grid>
+              
               <CustomTabPanel value={value} index={0}>
                 <Box
                   style={{
@@ -393,7 +424,7 @@ console.log(setpSize);
                   ))}
                 </Box>{" "}
               </CustomTabPanel>
-            </Box>
+            </Grid>
           </Grid>
         </Grid>
         <Grid

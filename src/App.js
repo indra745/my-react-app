@@ -10,6 +10,7 @@ import TopNav from './components/TopNav.jsx';
 const App = () => {
   return (
     <BrowserRouter>
+
       <Sidebar>
       <TopNav/>
 
