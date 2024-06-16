@@ -5,7 +5,7 @@ import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import AddAlertIcon from '@mui/icons-material/AddAlert';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import Person2Icon from '@mui/icons-material/Person2';
+// import Person2Icon from '@mui/icons-material/Person2';
 const TopNav = () => {
   
   const [isOpen, setIsOpen] = useState(false);

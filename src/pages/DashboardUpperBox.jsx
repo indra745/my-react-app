@@ -6,7 +6,7 @@ import SvgIcon1 from "../components/EventCreationSection/icons/SvgIcon1";
 
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import AddIcon from "@mui/icons-material/Add";
+// import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 
@@ -44,8 +44,8 @@ const DashboardUpperBox = () => {
                     height: "45px",
                     gap: "0px",
                     opacity: "0px",
-                    color: "#F6F6F7",
-                    font: "Poppins",
+                    // color: "#F6F6F7",
+                    // font: "Poppins",
                     font: '700 25.5px Poppins, sans-serif',
   color: '#f6f6f7',
   whiteSpace: 'pre-wrap'
