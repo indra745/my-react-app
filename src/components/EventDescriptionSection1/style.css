@@ -1,0 +1,14 @@
+.event-description-container {
+  box-sizing: border-box;
+  width: 55rem;
+  padding: 34px 29px 30px;
+  border: 0.6000000000000001px solid #adb9c7;
+  border-radius: 1.25rem;
+}
+.event-description-heading {
+  padding: 0;
+  margin: 0;
+  font: 700 14px/17px Poppins, sans-serif;
+  color: #f6f6f7;
+  white-space: pre-wrap;
+}

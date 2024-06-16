@@ -1,0 +1,27 @@
+.flex-container-with-border {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  height: 2.625rem;
+  padding-right: 0.15625rem;
+  padding-left: 0.6875rem;
+  border: 1px solid #1a1d27;
+}
+.standout-text {
+  flex: 0 0 auto;
+  padding: 0;
+  margin: 0;
+  font: 700 10px "DM Sans", sans-serif;
+  color: #f6f6f7;
+  white-space: pre-wrap;
+}
+.svg-container2 {
+  display: flex;
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+}

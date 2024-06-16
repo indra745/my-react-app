@@ -1,0 +1,65 @@
+.event-creation-section2 {
+  flex: 0 0 auto;
+  margin-top: 3.75rem;
+}
+.event-creation-container {
+  box-sizing: border-box;
+  width: 100%;
+  /* max-width: 98.6875rem; */
+  padding: 50px 104px 109px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+}
+.event-title-heading {
+  padding: 0;
+  margin: 0;
+  font: 700 30px Poppins, sans-serif;
+  color: #f6f6f7;
+  white-space: pre-wrap;
+}
+.event-creation-container1 {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 0.90625rem;
+}
+.exciting-challenge-text {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  max-width: 55.5rem;
+  padding: 0;
+  padding-top: 0.65625rem;
+  margin: 0;
+  font: 400 16px/24px Poppins, sans-serif;
+  color: #adb9c7;
+  text-align: left;
+  white-space: pre-wrap;
+}
+.prize-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 0.625rem;
+  align-items: center;
+  justify-content: center;
+  width: 16.125rem;
+  min-width: 16.125rem;
+  height: 3.5rem;
+  font: 500 18px/24px Poppins, sans-serif;
+  color: white;
+  letter-spacing: 0.03125rem;
+  cursor: pointer;
+  background: #2656d6;
+  border: 1px solid #2656d6;
+  border-radius: 0.5rem;
+}
+.svg-container1 {
+  display: flex;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #f6f6f7;
+}

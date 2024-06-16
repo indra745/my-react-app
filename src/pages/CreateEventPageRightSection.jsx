@@ -1,5 +1,6 @@
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useState, useMemo } from "react";
+import "./style.css";
 
 import { MdOutlineFileUpload } from "react-icons/md";
 import { Editor } from "react-draft-wysiwyg";
@@ -15,7 +16,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-
+import BannerUploader from "../components/BannerUploader";
+import EventDescriptionSection1 from "../components/EventDescriptionSection1/index";
 const tags = ["DID", "harmony", "nft", "defi", "cosmos"];
 
 const About = () => {
@@ -160,8 +162,8 @@ const About = () => {
       container
       spacing={4}
       sx={{
-        maxHeight: "600px", // Adjusted height to accommodate footer
-        height: "600px",
+        maxHeight: "100%", // Adjusted height to accommodate footer
+        height: "100vh",
         overflowY: "auto",
         "&::-webkit-scrollbar": {
           display: "none",
@@ -173,9 +175,10 @@ const About = () => {
       <Grid item xs={12}>
         <Box
           p={4}
-          border={"0.6px solid #ADB9C7"}
-          width={"40rem"}
-          borderRadius={2}
+          border={"0.6000000000000001px solid #adb9c7"}
+          width={"55rem"}
+          boxSizing={"border-box"}
+          borderRadius={"1.25rem"}
         >
           <Typography style={{ color: "#F6F6F7", marginBottom: "0.5rem" }}>
             Event Name
@@ -189,22 +192,23 @@ const About = () => {
               placeholder="Event Name"
               style={{
                 padding: "5px",
-                width: "35rem",
+                width: "100%",
                 background: "#020610",
                 color: "#ADB9C7",
                 outline: "none",
-                height: "2em",
+                height: "2.5rem",
                 border: "none",
               }}
             />
             <span
               style={{
                 padding: "5px",
-                fontSize: "1em",
-                background: "#020610",
-                color: "#ADB9C7",
-                height: "1.4em",
-                paddingTop: "9px",
+    fontSize: "1em",
+    background: "#020610",
+    color: "#ADB9C7",
+    height: "2.8rem",
+    display: "flex",
+    alignItems: "center",
               }}
             >
               {name.length}/{maxLength}
@@ -214,7 +218,7 @@ const About = () => {
       </Grid>
 
       <Grid item xs={12}>
-        <Box
+        {/* <Box
           p={4}
           border={"0.6px solid #ADB9C7"}
           width={"40rem"}
@@ -227,7 +231,7 @@ const About = () => {
             <input
               type="file"
               onChange={handleInputFile}
-              accept=".jpg,.jpeg,.png,.pdf,.docx" // Example file types
+              accept=".jpg,.jpeg,.png,.pdf,.docx"
               placeholder="Drag & Drop or Click to Upload, Max size of 400kb"
               aria-label="File upload input"
               style={{
@@ -254,11 +258,12 @@ const About = () => {
               <MdOutlineFileUpload />
             </span>
           </div>
-        </Box>
+        </Box> */}
+        <BannerUploader/>
       </Grid>
 
       <Grid item xs={12}>
-        <Box
+        {/* <Box
           p={4}
           border={"0.6px solid #ADB9C7"}
           width={"40rem"}
@@ -272,35 +277,38 @@ const About = () => {
             toolbarClassName="toolbarClassName"
             wrapperClassName="wrapperClassName"
             editorClassName="editorClassName"
-            onEditorStateChange={onEditorStateChange} // Changed to use the local
+            onEditorStateChange={onEditorStateChange} 
             editorStyle={{
               backgroundColor: "#1A1D27",
               minHeight: "150px",
               color: "#ADB9C7",
-            }} // Set background color to white
+            }} 
             toolbarStyle={{
               backgroundColor: "#1A1D27",
-              // minHeight: "150px",
+              
               border: "none",
               color: "#ADB9C7",
-            }} // Set background color to white
+            }} 
           />
-        </Box>
+        </Box> */}
+        <EventDescriptionSection1/>
       </Grid>
 
       <Grid item xs={12}>
         <Box
           p={4}
-          border={"0.6px solid #ADB9C7"}
-          width={"40rem"}
-          borderRadius={2}
+          width={"55rem"}
+          boxSizing={"border-box"}
+          border={"0.6000000000000001px solid #adb9c7"}
+
+          borderRadius={"1.25rem"}
           display={"flex"}
         >
-          <Box>
+          <Box width={"45%"}>
             <Typography style={{ color: "#F6F6F7", marginBottom: "0.5rem" }}>
               Start Date
             </Typography>
-            <Box style={{ background: "white", padding: "0px !important" }}>
+            <Box style={{ background: "white", padding: "0px !important" ,width:"100%"}}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DateTimePicker"]}>
                   <DateTimePicker
@@ -313,7 +321,7 @@ const About = () => {
               </LocalizationProvider>
             </Box>
           </Box>
-          <Box ml={2}>
+          <Box ml={2} width={"45%"}>
             <Typography style={{ color: "#F6F6F7", marginBottom: "0.5rem" }}>
               End Date
             </Typography>
@@ -348,9 +356,11 @@ const About = () => {
       <Grid item xs={12}>
         <Box
           p={4}
-          border={"0.6px solid #ADB9C7"}
-          width={"40rem"}
-          borderRadius={2}
+          boxSizing={"border-box"}
+          border={"0.6000000000000001px solid #adb9c7"}
+
+          borderRadius={"1.25rem"}
+                    width={"55rem"}
         >
           <Typography style={{ color: "#F6F6F7", marginBottom: "0.5rem" }}>
             Tags
@@ -365,7 +375,7 @@ const About = () => {
             )}
             value={selectedTags}
             onChange={handleTagsChange}
-            sx={{ width: "550px", background: "white" }}
+            sx={{ width: "100%", background: "white" }}
           />
         </Box>
       </Grid>
@@ -381,9 +391,9 @@ const About = () => {
         style={{
           position: "fixed",
           bottom: "0",
-          left: "570px",
+          left: "27.4%",
           right: "0",
-          width: "calc(100% - 570px)",
+          width: "calc(100% - 27.4%)",
           backgroundColor: "#FFFFFF14",
           padding: "20px",
           zIndex: 1,
