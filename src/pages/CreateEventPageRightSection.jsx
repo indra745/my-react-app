@@ -2,8 +2,8 @@ import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useState, useMemo } from "react";
 import "./style.css";
 
-import { MdOutlineFileUpload } from "react-icons/md";
-import { Editor } from "react-draft-wysiwyg";
+// import { MdOutlineFileUpload } from "react-icons/md";
+// import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -27,30 +27,30 @@ const About = () => {
   const [file, setFile] = useState("");
   const [editorState, setEditorState] = useState(null); // Added state for the editor
   const [editorContent, setEditorContent] = useState("");
-  console.log(file, editorContent);
+  console.log(file, editorContent,editorState,setFile);
   const maxLength = 20;
   const handleInputChange = (event) => {
     setName(event.target.value);
   };
 
-  const handleInputFile = (event) => {
-    const files = event.target.files;
-    if (files.length === 0) {
-      return;
-    }
-    const selectedFile = files[0];
-    if (selectedFile && selectedFile.size <= 400 * 1024) {
-      // 400 KB
-      const reader = new FileReader();
-      reader.readAsDataURL(selectedFile);
-      reader.onload = () => {
-        // reader.result contains the base64 representation of the selected file
-        setFile(reader.result);
-      };
-    } else if (selectedFile) {
-      alert("File size exceeds 400kb limit.");
-    }
-  };
+  // const handleInputFile = (event) => {
+  //   const files = event.target.files;
+  //   if (files.length === 0) {
+  //     return;
+  //   }
+  //   const selectedFile = files[0];
+  //   if (selectedFile && selectedFile.size <= 400 * 1024) {
+  //     // 400 KB
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(selectedFile);
+  //     reader.onload = () => {
+  //       // reader.result contains the base64 representation of the selected file
+  //       setFile(reader.result);
+  //     };
+  //   } else if (selectedFile) {
+  //     alert("File size exceeds 400kb limit.");
+  //   }
+  // };
 
   const [selectedDateTime, setSelectedDateTime] = useState(null);
 
@@ -74,7 +74,7 @@ const About = () => {
     const plainTextContent = htmlContent.replace(/<\/?[^>]+(>|$)/g, "");
     setEditorContent(plainTextContent);
   };
-  console.log("editorContent", editorContent);
+  console.log("editorContent", editorContent,onEditorStateChange);
 
   const [selectedTags, setSelectedTags] = useState([]);
 
