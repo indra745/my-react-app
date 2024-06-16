@@ -18,8 +18,8 @@ const DashboardUpperBox = () => {
   };
 
   return (
-    <Grid container spacing={2}>
-          <Grid item xs={12} sm container>
+    <Grid container spacing={2} p={3}>
+          <Grid item xs={12} sm container height={"10rem"} >
             <Grid
               item
               xs
@@ -46,9 +46,12 @@ const DashboardUpperBox = () => {
                     opacity: "0px",
                     color: "#F6F6F7",
                     font: "Poppins",
+                    font: '700 25.5px Poppins, sans-serif',
+  color: '#f6f6f7',
+  whiteSpace: 'pre-wrap'
                   }}
                 >
-                  Create Events
+                Create Events
                 </Typography>
 
                 <Typography
@@ -81,7 +84,7 @@ const DashboardUpperBox = () => {
                 }}
               >
             <SvgIcon1 className="svg-container1" />
-            Create Event
+            {" "}Create Event
               </Button>
             </Grid>
           </Grid>

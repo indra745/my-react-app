@@ -17,8 +17,8 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { GET_EVENT_LIST } from "../utils/urls.js";
-import DashboardUpperBox from "../components/EventCreationSection/index.jsx";
-// import DashboardUpperBox from "./DashboardUpperBox.jsx";
+// import DashboardUpperBox from "../components/EventCreationSection/index.jsx";
+import DashboardUpperBox from "./DashboardUpperBox.jsx";
 
 import DashboardCardsWithAllParameter from "./DashboardCardsWithAllParameter.jsx";
 // const Img = styled("img")({
@@ -194,8 +194,8 @@ console.log(setpSize);
         sx={{
           p: 2,
           flexGrow: 1,
-          background: "transparent",
-          // background: "#FFFFFF14",
+          // background: "transparent",
+          background: "#FFFFFF14",
 
         }}
       >
