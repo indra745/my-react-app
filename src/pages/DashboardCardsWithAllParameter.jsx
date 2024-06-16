@@ -35,6 +35,9 @@ const DashboardCardsWithAllParameter = (props) => {
                         borderRadius: "20px",
                         background: "#FFFFFF14",
                         width: "98%",
+                        height: "10rem",
+    alignItems: "center",
+    display: "flex",
                       }}
                     >
                       <Grid container spacing={2}>
@@ -44,7 +47,7 @@ const DashboardCardsWithAllParameter = (props) => {
                               width: 230,
                               height: 140,
                               border: "1px",
-                              borderRadius: "20px",
+                              borderRadius: "400px",
                             }}
                           >
                             <Img alt="complex" src={cardDetails?.banner} />

@@ -25,8 +25,8 @@ const TopNav = () => {
           <Avatar sx={{ bgcolor: 'var(--primary1, #020610)' }}>
             <AddAlertIcon />
           </Avatar>
-          <Avatar sx={{ bgcolor: 'var(--primary1, #020610)' }}>
-            <Person2Icon />
+          <Avatar sx={{ bgcolor: '#FFFFFF0F' }}src="\e5ba883e6f3b1f7f78b90806a3b010a5.svg">
+            {/* <Person2Icon /> */}
           </Avatar>
         </div>
       </div>
